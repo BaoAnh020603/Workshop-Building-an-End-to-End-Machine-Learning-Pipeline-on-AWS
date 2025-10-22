@@ -1,3 +1,4 @@
+baseURL = "https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/"
 theme = "hugo-theme-learn"
 canonifyURLs = true
 publishDir = "docs"     # 👈 Thêm dòng này ở đây
