@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Preparing Input Data for SageMaker on AWS Account Setup</title>
+    <link>//localhost:1313/5-train-model-with-sagemaker/5.1-prepare-training-data/</link>
+    <description>Recent content in Preparing Input Data for SageMaker on AWS Account Setup</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="//localhost:1313/5-train-model-with-sagemaker/5.1-prepare-training-data/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

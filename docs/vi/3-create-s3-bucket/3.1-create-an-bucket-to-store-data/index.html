@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="//localhost:1313/images/favicon.png" type="image/png">
+
+    <title>Tạo Bucket S3 :: Thiết lập AWS Account</title>
+
+    
+    <link href="//localhost:1313/css/nucleus.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/fontawesome-all.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/hybrid.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/featherlight.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/perfect-scrollbar.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/auto-complete.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/atom-one-dark-reasonable.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/theme.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/hugo-theme.css?1761106252" rel="stylesheet">
+    
+    <link href="//localhost:1313/css/theme-workshop.css?1761106252" rel="stylesheet">
+    
+    
+
+    <script src="//localhost:1313/js/jquery-3.3.1.min.js?1761106252"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="//localhost:1313/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+  
+  
+    <div id="header-wrapper">
+      <div id="header">
+        <a id="logo" href="//localhost:1313/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+      </div>
+      
+          <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="//localhost:1313/js/lunr.min.js?1761106252"></script>
+<script type="text/javascript" src="//localhost:1313/js/auto-complete.js?1761106252"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="//localhost:1313/js/search.js?1761106252"></script>
+      
+    </div>
+  
+      <div class="highlightable">
+      <ul class="topics">
+  
+          
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/1-introduction/" title="Giới thiệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/1-introduction/">
+            <b>1. </b>Giới thiệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/2-check-aws-account-and-permissions/" title="Kiểm tra Tài khoản và Quyền AWS" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/2-check-aws-account-and-permissions/">
+            <b>2. </b>Kiểm tra Tài khoản và Quyền AWS
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/" title="Tạo Bucket S3 để Lưu trữ Dữ liệu" class="dd-item 
+          parent
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/">
+            <b>3. </b>Tạo Bucket S3 để Lưu trữ Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/" title="Tạo Bucket S3" class="dd-item 
+          
+          active
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/">
+            <b>3.1 </b>Tạo Bucket S3
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.2-organize-data-structure/" title="Tổ chức Cấu trúc Dữ liệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.2-organize-data-structure/">
+            <b>3.2 </b>Tổ chức Cấu trúc Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.3-upload-sample-data/" title="Tải lên dữ liệu mẫu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.3-upload-sample-data/">
+            <b>3.3 </b>Tải lên dữ liệu mẫu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/4-implement-lambda-preprocessing/" title="Triển khai Hàm Xử lý Trước Lambda" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/4-implement-lambda-preprocessing/">
+            <b>4. </b>Triển khai Hàm Xử lý Trước Lambda
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/" title="Đào tạo và Đăng ký Mô hình với Amazon SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/">
+            <b>5. </b>Đào tạo và Đăng ký Mô hình với Amazon SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/" title="Chuẩn bị dữ liệu đầu vào cho SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/">
+            <b>5.1 </b>Chuẩn bị dữ liệu đầu vào cho SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.2-create-training-job/" title="Tạo SageMaker Training Job" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.2-create-training-job/">
+            <b>5.2 </b>Tạo SageMaker Training Job
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/" title="Đăng ký và Quản lý Mô hình trong SageMaker Model Registry" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/">
+            <b>5.3 </b>Đăng ký và Quản lý Mô hình trong SageMaker Model Registry
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.4-validate-training-results/" title="Xác thực Kết quả Huấn luyện Mô hình" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.4-validate-training-results/">
+            <b>5.4 </b>Xác thực Kết quả Huấn luyện Mô hình
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/6-deploy-sagemaker-endpoint/" title="Triển khai Endpoint của SageMaker cho Inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/6-deploy-sagemaker-endpoint/">
+            <b>6. </b>Triển khai Endpoint của SageMaker cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/7-build-lambda-inference-and-api/" title="Xây dựng Lambda Function và REST API cho Inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/7-build-lambda-inference-and-api/">
+            <b>7. </b>Xây dựng Lambda Function và REST API cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/" title="Tích hợp DynamoDB và CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/">
+            <b>8 </b>Tích hợp DynamoDB và CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/" title="Tạo bảng DynamoDB để lưu metadata inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/">
+            <b>8.1 </b>Tạo bảng DynamoDB để lưu metadata inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/" title="Cập nhật Lambda để ghi dữ liệu vào DynamoDB" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/">
+            <b>8.2 </b>Cập nhật Lambda để ghi dữ liệu vào DynamoDB
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/" title="Giám sát với Amazon CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/">
+            <b>8.3 </b>Giám sát với Amazon CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/9-clean-up-resources/" title="Dọn dẹp tài nguyên" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/9-clean-up-resources/">
+            <b>9. </b>Dọn dẹp tài nguyên
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/10-conclusion/" title="Kết luận và những điểm chính" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/10-conclusion/">
+            <b>10. </b>Kết luận và những điểm chính
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+           
+      </ul>
+  
+      
+      
+        <section id="shortcuts">
+          <h3>More</h3>
+          <ul>
+            
+                <li> 
+                    <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+                </li>
+            
+          </ul>
+        </section>
+      
+  
+      
+      <section id="prefooter">
+        <hr/>
+        <ul>
+        
+          <li>
+            <a class="padding">
+              <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+            
+            
+            
+                
+                
+                    
+                      
+                      
+                        <option id="en" value="//localhost:1313/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/">English</option>
+                      
+                    
+                
+                    
+                
+            
+                
+                
+                    
+                
+                    
+                      
+                      
+                        <option id="vi" value="//localhost:1313/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/" selected>Tiếng Việt</option>
+                      
+                    
+                
+            
+          </select>
+          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+            <g>
+              <g id="arrow-drop-down">
+                <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+              </g>
+            </g>
+          </svg>
+          </div>
+          </a>
+          </li>
+        
+        
+        
+          <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+        
+        </ul>
+      </section>
+      
+      <section id="footer">
+        <left>
+    
+    <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Migrate" Alt="web counter" border="0" /></a> <br>
+    <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Total CLoud Journey" Alt="web counter" border="0" />
+
+</left>
+<left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>29-08-2025</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+
+    <i>
+        <a href="https://www.linkedin.com/in/bao-anh-nguyen-nhat-7891722a7/" style="color:orange">Nguyễn Nhật Bảo Anh</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+      </section>
+    </div>
+  </nav>
+  
+  
+  
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='//localhost:1313/vi/'>Hội thảo: Xây dựng quy trình học máy toàn diện trên AWS với Lambda, API Gateway, S3, SageMaker và DynamoDB</a> > <a href='//localhost:1313/vi/3-create-s3-bucket/'>Tạo Bucket S3 để Lưu trữ Dữ liệu</a> > Tạo Bucket S3
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Tạo Bucket S3
+            </h1>
+          
+
+        
+
+
+
+	<h4 id="amazon-s3-là-gì">Amazon S3 là gì?</h4>
+<p><strong>Amazon S3 (Simple Storage Service)</strong> là dịch vụ lưu trữ đối tượng (object storage) của AWS, có khả năng mở rộng gần như vô hạn, độ bền cao và dễ dàng tích hợp với các dịch vụ khác như <strong>Lambda</strong>, <strong>CloudFront</strong>, và <strong>API Gateway</strong>.<br>
+Trong dự án này, S3 sẽ đóng vai trò là nơi lưu trữ toàn bộ dữ liệu tĩnh như:</p>
+<ul>
+<li>🗂️ <strong>Frontend web</strong> đã build bằng React.js</li>
+<li>🖼️ Hình ảnh và nội dung bài viết (media)</li>
+<li>📦 File tạm thời hoặc dữ liệu cần cho Lambda xử lý</li>
+</ul>
+<hr>
+<h4 id="vì-sao-cần-tạo-s3-bucket">Vì sao cần tạo S3 Bucket?</h4>
+<ul>
+<li>📁 <strong>Lưu trữ tĩnh website</strong>: Upload toàn bộ frontend (HTML, CSS, JS) sau khi build để website có thể truy cập qua CloudFront.</li>
+<li>🔁 <strong>Kết hợp với CloudFront</strong>: S3 là nguồn dữ liệu gốc cho CDN giúp tối ưu tốc độ tải trang.</li>
+<li>🔐 <strong>Tích hợp với Lambda</strong>: Cho phép Lambda truy cập/ghi dữ liệu khi cần xử lý.</li>
+<li>⚙️ <strong>Serverless kiến trúc</strong>: Không cần máy chủ để lưu trữ nội dung, tất cả chạy hoàn toàn serverless.</li>
+</ul>
+<hr>
+<h4 id="-31-tạo-s3-bucket">🪣 3.1. Tạo S3 Bucket</h4>
+<ol>
+<li>Truy cập <a href="https://aws.amazon.com/console/"><strong>AWS Management Console</strong></a></li>
+<li>Mở dịch vụ <strong>Amazon S3</strong>.</li>
+<li>Trong menu bên trái, chọn <strong>Buckets</strong>, sau đó nhấn <strong>Create bucket</strong>.</li>
+</ol>
+<p><img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.1.png" alt="open-s3.png"></p>
+<hr>
+<ol start="4">
+<li>Trong giao diện <strong>Create bucket</strong>:</li>
+</ol>
+<ul>
+<li><strong>Bucket name</strong>: đặt tên duy nhất toàn cầu, ví dụ: <code>my-serverless-blog-bucket</code></li>
+<li><strong>AWS Region</strong>: chọn cùng region với Lambda và DynamoDB (ví dụ: <code>us-east-1</code>)</li>
+<li><strong>Block Public Access</strong>: bỏ chọn nếu bạn muốn bucket public để lưu frontend (sẽ chỉnh sau).</li>
+<li>Các phần khác giữ mặc định.</li>
+<li>Nhấn <strong>Create bucket</strong></li>
+</ul>
+<p><img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.2.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.3.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.4.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.5.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.6.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.7.png" alt="open-s3.png"></p>
+
+<div class="notices tip" ><p>💡 <strong>Gợi ý:</strong> Bucket name phải <strong>duy nhất toàn cầu</strong> – nếu tên bạn nhập đã tồn tại, hãy thêm hậu tố như <code>-2025</code> hoặc tên dự án của bạn.</p>
+</div>
+
+<hr>
+<h4 id="-32-kiểm-tra-và-cấu-hình-bucket">📂 3.2. Kiểm tra và cấu hình Bucket</h4>
+<ul>
+<li>Sau khi tạo, bạn sẽ thấy bucket của mình trong danh sách.</li>
+<li>Nhấn vào tên bucket để mở chi tiết.</li>
+</ul>
+<p><img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.8.png" alt="open-s3.png"></p>
+<ul>
+<li>Vào tab <strong>Properties</strong> để kiểm tra cấu hình tổng quan.</li>
+<li>Vào tab <strong>Permissions</strong> để cấu hình truy cập (quan trọng nếu bạn muốn lưu frontend công khai).
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.9.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.10.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.11.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.12.png" alt="open-s3.png">
+<img src="//localhost:1313/images/3-Create-DynamoDB-Table/3.1-Create-an-S3-Bucket-to-store-data/3.13.png" alt="open-s3.png">
+
+<div class="notices warning" ><p>⚠️ Nếu bạn định host website tĩnh từ S3, cần <strong>cho phép truy cập công khai</strong>.<br>
+Hãy chắc chắn bạn <strong>hiểu rõ rủi ro bảo mật</strong> khi bật public access.</p>
+</div>
+</li>
+</ul>
+<hr>
+<h4 id="-hoàn-thành">✅ Hoàn thành</h4>
+<p>🎉 Bạn đã tạo thành công một <strong>S3 Bucket</strong> – thành phần lưu trữ trung tâm trong kiến trúc serverless của dự án.<br>
+Trong các bước tiếp theo, chúng ta sẽ:</p>
+<ul>
+<li>Upload frontend đã build vào bucket</li>
+<li>Kết nối CloudFront để phân phối nội dung toàn cầu</li>
+<li>Cấu hình Lambda để ghi/đọc dữ liệu nếu cần</li>
+</ul>
+
+<div class="notices note" ><p>📌 <strong>Tóm tắt:</strong> S3 là nền tảng lưu trữ dữ liệu tĩnh và nội dung cho ứng dụng web. Hãy đảm bảo bucket nằm cùng region với các dịch vụ khác để tránh lỗi quyền truy cập và tối ưu chi phí.</p>
+</div>
+
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="//localhost:1313/vi/3-create-s3-bucket/" title="Tạo Bucket S3 để Lưu trữ Dữ liệu"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="//localhost:1313/vi/3-create-s3-bucket/3.2-organize-data-structure/" title="Tổ chức Cấu trúc Dữ liệu" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="//localhost:1313/js/clipboard.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.jquery.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/jquery.sticky.js?1761106252"></script>
+    <script src="//localhost:1313/js/featherlight.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/highlight.pack.js?1761106252"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//localhost:1313/js/modernizr.custom-3.6.0.js?1761106252"></script>
+    <script src="//localhost:1313/js/learn.js?1761106252"></script>
+    <script src="//localhost:1313/js/hugo-learn.js?1761106252"></script>
+
+    <link href="//localhost:1313/mermaid/mermaid.css?1761106252" rel="stylesheet" />
+    <script src="//localhost:1313/mermaid/mermaid.js?1761106252"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Tạo Lambda Functions :: Thiết lập AWS Account</title>
+
+    
+    <link href="/css/nucleus.css?1759310320" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1759310320" rel="stylesheet">
+    <link href="/css/hybrid.css?1759310320" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1759310320" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1759310320" rel="stylesheet">
+    <link href="/css/auto-complete.css?1759310320" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1759310320" rel="stylesheet">
+    <link href="/css/theme.css?1759310320" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1759310320" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1759310320" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1759310320"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/vi/4-create-lambda-functions/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+  
+  
+    <div id="header-wrapper">
+      <div id="header">
+        <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+      </div>
+      
+          <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1759310320"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1759310320"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/vi";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1759310320"></script>
+      
+    </div>
+  
+      <div class="highlightable">
+      <ul class="topics">
+  
+          
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/1-introduction/" title="Giới thiệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/1-introduction/">
+            <b>1. </b>Giới thiệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/2-set-up-aws-account-and-iam-permissions/" title="Thiết lập tài khoản AWS và quyền IAM" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/2-set-up-aws-account-and-iam-permissions/">
+            <b>2. </b>Thiết lập tài khoản AWS và quyền IAM
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-dynamodb-table/" title="Chuẩn bị DynamoDB" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/3-create-dynamodb-table/">
+            <b>3. </b>Chuẩn bị DynamoDB
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-dynamodb-table/3.1-create-dynamodb-table/" title="Tạo bảng DynamoDB" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/3-create-dynamodb-table/3.1-create-dynamodb-table/">
+            <b>3.1 </b>Tạo bảng DynamoDB
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-dynamodb-table/3.2-add-sample-data/" title="Thêm dữ liệu mẫu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/3-create-dynamodb-table/3.2-add-sample-data/">
+            <b>3.2 </b>Thêm dữ liệu mẫu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/4-create-lambda-functions/" title="Tạo Lambda Functions" class="dd-item 
+          
+          active
+          
+          ">
+        <a href="/vi/4-create-lambda-functions/">
+            <b>4. </b>Tạo Lambda Functions
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-configure-api-gateway/" title="Tạo REST API và cấu hình và kiểm tra API" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/5-configure-api-gateway/">
+            <b>5. </b>Tạo REST API và cấu hình và kiểm tra API
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-configure-api-gateway/5.2-api-test-configuration/" title="Cấu hình và kiểm tra API" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/5-configure-api-gateway/5.2-api-test-configuration/">
+            <b>5.2 </b>Cấu hình và kiểm tra API
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-configure-api-gateway/5.1-create-rest-api/" title="Tạo REST API" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/5-configure-api-gateway/5.1-create-rest-api/">
+            <b>5.1 </b>Tạo REST API
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/6-prepare-frontend-application/" title="Chuẩn bị ứng dụng Frontend" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/6-prepare-frontend-application/">
+            <b>6. </b>Chuẩn bị ứng dụng Frontend
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/7-host-frontend-on-s3/" title="Host Frontend trên S3" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/7-host-frontend-on-s3/">
+            <b>7. </b>Host Frontend trên S3
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-configure-cloudfront/" title="Amazon CloudFront" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/8-configure-cloudfront/">
+            <b>8 </b>Amazon CloudFront
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-configure-cloudfront/8.1-create-cloudfront-distribution/" title="Tạo CloudFront Distribution" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/8-configure-cloudfront/8.1-create-cloudfront-distribution/">
+            <b>8.1 </b>Tạo CloudFront Distribution
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-configure-cloudfront/8.2-check-cloudfront/" title="Cập nhật và kiểm tra CloudFront" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/8-configure-cloudfront/8.2-check-cloudfront/">
+            <b>8.2 </b>Cập nhật và kiểm tra CloudFront
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/9-clean-up-resources/" title="Dọn dẹp tài nguyên" class="dd-item 
+          
+          
+          
+          ">
+        <a href="/vi/9-clean-up-resources/">
+            <b>9. </b>Dọn dẹp tài nguyên
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+           
+      </ul>
+  
+      
+      
+        <section id="shortcuts">
+          <h3>More</h3>
+          <ul>
+            
+                <li> 
+                    <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+                </li>
+            
+          </ul>
+        </section>
+      
+  
+      
+      <section id="prefooter">
+        <hr/>
+        <ul>
+        
+          <li>
+            <a class="padding">
+              <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+            
+            
+            
+                
+                
+                    
+                      
+                      
+                        <option id="en" value="/4-create-lambda-functions/">English</option>
+                      
+                    
+                
+                    
+                
+            
+                
+                
+                    
+                
+                    
+                      
+                      
+                        <option id="vi" value="/vi/4-create-lambda-functions/" selected>Tiếng Việt</option>
+                      
+                    
+                
+            
+          </select>
+          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+            <g>
+              <g id="arrow-drop-down">
+                <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+              </g>
+            </g>
+          </svg>
+          </div>
+          </a>
+          </li>
+        
+        
+        
+          <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+        
+        </ul>
+      </section>
+      
+      <section id="footer">
+        <left>
+    
+    <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Migrate" Alt="web counter" border="0" /></a> <br>
+    <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Total CLoud Journey" Alt="web counter" border="0" />
+
+</left>
+<left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>16-07-2025</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+
+    <i>
+        <a href="https://www.linkedin.com/in/bao-anh-nguyen-nhat-7891722a7/" style="color:orange">Nguyễn Nhật Bảo Anh</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+      </section>
+    </div>
+  </nav>
+  
+  
+  
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/vi/'>Workshop: Triển Khai Website Blog Serverless Trên AWS Với Lambda, API Gateway, DynamoDB, S3 & CloudFront</a> > Tạo Lambda Functions
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#đóng-gói-mã">Đóng gói mã:</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#nhấn-test-và-kiểm-tra-kết-quả">Nhấn Test và kiểm tra kết quả:</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Tạo Lambda Functions
+            </h1>
+          
+
+        
+
+
+
+	<h4 id="aws-lambda">AWS Lambda</h4>
+<p><strong>AWS Lambda</strong> là một dịch vụ serverless cho phép chạy mã mà không cần quản lý máy chủ. Nó tự động mở rộng theo lưu lượng truy cập và chỉ tính phí khi mã được thực thi, rất phù hợp cho các ứng dụng như API backend.</p>
+<h4 id="lambda-function-là-gì">Lambda Function là gì?</h4>
+<p><strong>Lambda Function</strong> là một đoạn mã (viết bằng Node.js, Python, v.v.) được triển khai trên AWS Lambda để xử lý các tác vụ cụ thể, như truy xuất dữ liệu từ DynamoDB hoặc xử lý yêu cầu API.</p>
+<h4 id="mô-hình-triển-khai-lambda-trong-workshop">Mô hình triển khai Lambda trong Workshop</h4>
+<p>Trong workshop này, chúng ta sẽ tạo hai Lambda functions:</p>
+<ul>
+<li><strong><code>getPosts</code></strong>: Truy xuất danh sách bài viết từ bảng <code>BlogPosts</code> trong DynamoDB.</li>
+<li><strong><code>createPost</code></strong>: Thêm bài viết mới vào bảng <code>BlogPosts</code>.</li>
+<li>Các functions này sẽ:
+<ul>
+<li>Tích hợp với API Gateway để xử lý yêu cầu HTTP.</li>
+<li>Sử dụng IAM Role (đã tạo ở bước trước) để truy cập DynamoDB.</li>
+<li>Được viết bằng Node.js với AWS SDK v3.</li>
+</ul>
+</li>
+</ul>
+<h4 id="lý-do-chọn-lambda">Lý do chọn Lambda:</h4>
+<ul>
+<li><strong>Serverless</strong>: Không cần quản lý máy chủ, giảm chi phí vận hành.</li>
+<li><strong>Chi phí thấp</strong>: Free Tier cung cấp 1 triệu yêu cầu miễn phí mỗi tháng, phù hợp cho thử nghiệm.</li>
+<li><strong>Tích hợp dễ dàng</strong>: Hoạt động tốt với API Gateway và DynamoDB.</li>
+</ul>
+<h4 id="lý-do-chọn-nodejs">Lý do chọn Node.js:</h4>
+<ul>
+<li><strong>Phổ biến</strong>: Hỗ trợ tốt cho các ứng dụng web và serverless.</li>
+<li><strong>AWS SDK v3</strong>: Cung cấp các module nhẹ (như <code>@aws-sdk/client-dynamodb</code>) để tối ưu hiệu suất.</li>
+<li><strong>Cộng đồng lớn</strong>: Dễ tìm tài liệu và thư viện hỗ trợ.</li>
+</ul>
+<h4 id="tạo-lambda-functions">Tạo Lambda Functions</h4>
+<h4 id="1-truy-cập-aws-console">1. Truy cập AWS Console</h4>
+<ul>
+<li>Mở trình duyệt và truy cập vào <a href="https://ap-southeast-1.console.aws.amazon.com/lambda/home?region=ap-southeast-1#/begin/">Lambda Console</a></li>
+</ul>
+<h4 id="2-tạo-function-getposts">2. Tạo function <code>getPosts</code></h4>
+<ul>
+<li>Trong <strong>Lambda Dashboard</strong>, chọn <strong>Create function</strong>.</li>
+</ul>
+<p><img src="/images/4-Create-Lambda-Functions/4.1.png" alt="create-function.png"></p>
+<h4 id="3-cấu-hình-function">3. Cấu hình function</h4>
+<ul>
+<li>Trong phần <strong>Create function</strong>:
+<ul>
+<li><strong>Function name</strong>: Nhập <code>getPosts</code>.</li>
+<li><strong>Runtime</strong>: Chọn <strong>Node.js 20.x</strong>.</li>
+<li><strong>Role</strong>: Chọn <strong>Use an existing role</strong> và chọn <code>lambda-blog-role</code> (đã tạo ở bước IAM).</li>
+<li>Nhấn <strong>Create function</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/4-Create-Lambda-Functions/4.2.png" alt="configure-getposts.png"></p>
+<h4 id="4-thêm-mã-cho-getposts">4. Thêm mã cho <code>getPosts</code></h4>
+<ul>
+<li>Trong giao diện function, chọn tab <strong>Code</strong>.</li>
+<li>Thay mã mặc định trong <code>index.mjs</code> bằng mã sau:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">DynamoDBClient</span>, <span style="color:#a6e22e">ScanCommand</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@aws-sdk/client-dynamodb&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dynamodb</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">DynamoDBClient</span>({});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TableName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>.<span style="color:#a6e22e">TABLE_NAME</span>
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">dynamodb</span>.<span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ScanCommand</span>(<span style="color:#a6e22e">params</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">statusCode</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Items</span> <span style="color:#f92672">||</span> []),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span> }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Error:&#39;</span>, <span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">statusCode</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Could not retrieve posts&#39;</span> })
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div>
+<div class="notices note" ><p>Thêm environment variable:
+Trong tab Configuration → Environment variables, chọn Edit.
+Thêm: TABLE_NAME = BlogPosts.
+Nhấn Save.</p>
+</div>
+
+<h4 id="5-tạo-function-createpost">5. Tạo function createPost</h4>
+
+<div class="notices note" ><p>Lặp lại bước 2-3 để tạo function mới với:
+Function name: createPost.
+Runtime: Node.js 20.x.
+Role: lambda-blog-role.</p>
+</div>
+
+<p>Thay mã trong index.mjs bằng:</p>
+<pre tabindex="0"><code>import { DynamoDBClient, PutItemCommand } from &#39;@aws-sdk/client-dynamodb&#39;;
+import { marshall } from &#39;@aws-sdk/util-dynamodb&#39;;
+
+const dynamodb = new DynamoDBClient({});
+
+export const handler = async (event) =&gt; {
+  const body = JSON.parse(event.body || &#39;{}&#39;);
+  const params = {
+    TableName: process.env.TABLE_NAME,
+    Item: marshall({
+      postId: body.postId || Date.now().toString(),
+      title: body.title || &#39;Untitled&#39;,
+      content: body.content || &#39;&#39;,
+      createdAt: new Date().toISOString()
+    })
+  };
+  try {
+    await dynamodb.send(new PutItemCommand(params));
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: &#39;Post created successfully&#39; }),
+      headers: { &#39;Content-Type&#39;: &#39;application/json&#39; }
+    };
+  } catch (err) {
+    console.error(&#39;Error:&#39;, err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: &#39;Could not create post&#39; })
+    };
+  }
+};
+</code></pre>
+<div class="notices note" ><p>Thêm environment variable TABLE_NAME = BlogPosts như bước 4.</p>
+</div>
+
+<h4 id="6-cấu-hình-packagejson">6. Cấu hình package.json</h4>
+<p>Để thêm dependency @aws-sdk/client-dynamodb và @aws-sdk/util-dynamodb, tạo file package.json trong thư mục mã nguồn:</p>
+<pre tabindex="0"><code>{
+  &#34;name&#34;: &#34;lambda-blog&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;type&#34;: &#34;module&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@aws-sdk/client-dynamodb&#34;: &#34;^3.0.0&#34;,
+    &#34;@aws-sdk/util-dynamodb&#34;: &#34;^3.0.0&#34;
+  }
+}
+</code></pre><h2 id="đóng-gói-mã">Đóng gói mã:</h2>
+<ul>
+<li>Tạo thư mục cục bộ cho mỗi function (ví dụ: getPosts/, createPost/).</li>
+<li>Chạy npm install trong mỗi thư mục.</li>
+<li>Nén thư mục thành file .zip (bao gồm node_modules, index.mjs, package.json).</li>
+<li>Upload file .zip vào Lambda trong tab Code → Upload from → .zip file.</li>
+</ul>
+
+<div class="notices warning" ><p>Đảm bảo sử dụng ES Module (index.mjs) và handler là index.handler.
+File .zip phải bao gồm node_modules để tránh lỗi thiếu dependency.
+Environment variable TABLE_NAME phải khớp với tên bảng DynamoDB (BlogPosts).</p>
+</div>
+
+<h4 id="7-kiểm-tra-lambda-functions">7. Kiểm tra Lambda Functions</h4>
+<p>Trong giao diện mỗi function, chọn tab Test:</p>
+<pre tabindex="0"><code>Đối với getPosts, tạo event với JSON rỗng {}.
+Đối với createPost, tạo event mẫu:{
+  &#34;body&#34;: &#34;{\&#34;postId\&#34;: \&#34;1\&#34;, \&#34;title\&#34;: \&#34;Test Post\&#34;, \&#34;content\&#34;: \&#34;This is a test post.\&#34;}&#34;
+}
+</code></pre><h2 id="nhấn-test-và-kiểm-tra-kết-quả">Nhấn Test và kiểm tra kết quả:</h2>
+<ul>
+<li>getPosts: Trả về danh sách bài viết (hoặc mảng rỗng nếu chưa có dữ liệu).</li>
+<li>createPost: Trả về thông báo { &ldquo;message&rdquo;: &ldquo;Post created successfully&rdquo; }.</li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/vi/3-create-dynamodb-table/3.2-add-sample-data/" title="Thêm dữ liệu mẫu"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/vi/5-configure-api-gateway/" title="Tạo REST API và cấu hình và kiểm tra API" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1759310320"></script>
+    <script src="/js/perfect-scrollbar.min.js?1759310320"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1759310320"></script>
+    <script src="/js/jquery.sticky.js?1759310320"></script>
+    <script src="/js/featherlight.min.js?1759310320"></script>
+    <script src="/js/highlight.pack.js?1759310320"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1759310320"></script>
+    <script src="/js/learn.js?1759310320"></script>
+    <script src="/js/hugo-learn.js?1759310320"></script>
+
+    <link href="/mermaid/mermaid.css?1759310320" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1759310320"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

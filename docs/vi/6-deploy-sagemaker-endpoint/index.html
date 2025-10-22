@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="//localhost:1313/images/favicon.png" type="image/png">
+
+    <title>Triển khai Endpoint của SageMaker cho Inference :: Thiết lập AWS Account</title>
+
+    
+    <link href="//localhost:1313/css/nucleus.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/fontawesome-all.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/hybrid.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/featherlight.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/perfect-scrollbar.min.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/auto-complete.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/atom-one-dark-reasonable.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/theme.css?1761106252" rel="stylesheet">
+    <link href="//localhost:1313/css/hugo-theme.css?1761106252" rel="stylesheet">
+    
+    <link href="//localhost:1313/css/theme-workshop.css?1761106252" rel="stylesheet">
+    
+    
+
+    <script src="//localhost:1313/js/jquery-3.3.1.min.js?1761106252"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="//localhost:1313/vi/6-deploy-sagemaker-endpoint/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+  
+  
+    <div id="header-wrapper">
+      <div id="header">
+        <a id="logo" href="//localhost:1313/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+      </div>
+      
+          <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="//localhost:1313/js/lunr.min.js?1761106252"></script>
+<script type="text/javascript" src="//localhost:1313/js/auto-complete.js?1761106252"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="//localhost:1313/js/search.js?1761106252"></script>
+      
+    </div>
+  
+      <div class="highlightable">
+      <ul class="topics">
+  
+          
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/1-introduction/" title="Giới thiệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/1-introduction/">
+            <b>1. </b>Giới thiệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/2-check-aws-account-and-permissions/" title="Kiểm tra Tài khoản và Quyền AWS" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/2-check-aws-account-and-permissions/">
+            <b>2. </b>Kiểm tra Tài khoản và Quyền AWS
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/" title="Tạo Bucket S3 để Lưu trữ Dữ liệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/">
+            <b>3. </b>Tạo Bucket S3 để Lưu trữ Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/" title="Tạo Bucket S3" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/">
+            <b>3.1 </b>Tạo Bucket S3
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.2-organize-data-structure/" title="Tổ chức Cấu trúc Dữ liệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.2-organize-data-structure/">
+            <b>3.2 </b>Tổ chức Cấu trúc Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.3-upload-sample-data/" title="Tải lên dữ liệu mẫu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.3-upload-sample-data/">
+            <b>3.3 </b>Tải lên dữ liệu mẫu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/4-implement-lambda-preprocessing/" title="Triển khai Hàm Xử lý Trước Lambda" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/4-implement-lambda-preprocessing/">
+            <b>4. </b>Triển khai Hàm Xử lý Trước Lambda
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/" title="Đào tạo và Đăng ký Mô hình với Amazon SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/">
+            <b>5. </b>Đào tạo và Đăng ký Mô hình với Amazon SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/" title="Chuẩn bị dữ liệu đầu vào cho SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/">
+            <b>5.1 </b>Chuẩn bị dữ liệu đầu vào cho SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.2-create-training-job/" title="Tạo SageMaker Training Job" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.2-create-training-job/">
+            <b>5.2 </b>Tạo SageMaker Training Job
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/" title="Đăng ký và Quản lý Mô hình trong SageMaker Model Registry" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/">
+            <b>5.3 </b>Đăng ký và Quản lý Mô hình trong SageMaker Model Registry
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.4-validate-training-results/" title="Xác thực Kết quả Huấn luyện Mô hình" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.4-validate-training-results/">
+            <b>5.4 </b>Xác thực Kết quả Huấn luyện Mô hình
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/6-deploy-sagemaker-endpoint/" title="Triển khai Endpoint của SageMaker cho Inference" class="dd-item 
+          
+          active
+          
+          ">
+        <a href="//localhost:1313/vi/6-deploy-sagemaker-endpoint/">
+            <b>6. </b>Triển khai Endpoint của SageMaker cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/7-build-lambda-inference-and-api/" title="Xây dựng Lambda Function và REST API cho Inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/7-build-lambda-inference-and-api/">
+            <b>7. </b>Xây dựng Lambda Function và REST API cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/" title="Tích hợp DynamoDB và CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/">
+            <b>8 </b>Tích hợp DynamoDB và CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/" title="Tạo bảng DynamoDB để lưu metadata inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/">
+            <b>8.1 </b>Tạo bảng DynamoDB để lưu metadata inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/" title="Cập nhật Lambda để ghi dữ liệu vào DynamoDB" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/">
+            <b>8.2 </b>Cập nhật Lambda để ghi dữ liệu vào DynamoDB
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/" title="Giám sát với Amazon CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/">
+            <b>8.3 </b>Giám sát với Amazon CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/9-clean-up-resources/" title="Dọn dẹp tài nguyên" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/9-clean-up-resources/">
+            <b>9. </b>Dọn dẹp tài nguyên
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/10-conclusion/" title="Kết luận và những điểm chính" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/10-conclusion/">
+            <b>10. </b>Kết luận và những điểm chính
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+           
+      </ul>
+  
+      
+      
+        <section id="shortcuts">
+          <h3>More</h3>
+          <ul>
+            
+                <li> 
+                    <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+                </li>
+            
+          </ul>
+        </section>
+      
+  
+      
+      <section id="prefooter">
+        <hr/>
+        <ul>
+        
+          <li>
+            <a class="padding">
+              <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+            
+            
+            
+                
+                
+                    
+                      
+                      
+                        <option id="en" value="//localhost:1313/6-deploy-sagemaker-endpoint/">English</option>
+                      
+                    
+                
+                    
+                
+            
+                
+                
+                    
+                
+                    
+                      
+                      
+                        <option id="vi" value="//localhost:1313/vi/6-deploy-sagemaker-endpoint/" selected>Tiếng Việt</option>
+                      
+                    
+                
+            
+          </select>
+          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+            <g>
+              <g id="arrow-drop-down">
+                <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+              </g>
+            </g>
+          </svg>
+          </div>
+          </a>
+          </li>
+        
+        
+        
+          <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+        
+        </ul>
+      </section>
+      
+      <section id="footer">
+        <left>
+    
+    <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Migrate" Alt="web counter" border="0" /></a> <br>
+    <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Total CLoud Journey" Alt="web counter" border="0" />
+
+</left>
+<left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>29-08-2025</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+
+    <i>
+        <a href="https://www.linkedin.com/in/bao-anh-nguyen-nhat-7891722a7/" style="color:orange">Nguyễn Nhật Bảo Anh</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+      </section>
+    </div>
+  </nav>
+  
+  
+  
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='//localhost:1313/vi/'>Hội thảo: Xây dựng quy trình học máy toàn diện trên AWS với Lambda, API Gateway, S3, SageMaker và DynamoDB</a> > Triển khai Endpoint của SageMaker cho Inference
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-mục-tiêu">🎯 Mục tiêu</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Triển khai Endpoint của SageMaker cho Inference
+            </h1>
+          
+
+        
+
+
+
+	<p><img src="//localhost:1313/images/6.0.png" alt="sagemaker-endpoint.png"></p>
+<p>Trong phần này, chúng ta sẽ <strong>triển khai mô hình đã train từ bước 5 lên Amazon SageMaker Endpoint</strong>, cho phép gọi inference thông qua API hoặc Lambda function. Đây là bước quan trọng để biến mô hình ML của bạn thành một dịch vụ có thể sử dụng trong thực tế.</p>
+<hr>
+<h3 id="-mục-tiêu">🎯 Mục tiêu</h3>
+<ul>
+<li>Tạo endpoint từ model đã train và register ở bước trước.</li>
+<li>Kiểm tra endpoint bằng dữ liệu mẫu.</li>
+<li>Chuẩn bị endpoint để tích hợp với Lambda ở bước tiếp theo.</li>
+</ul>
+<hr>
+<h4 id="-61--tạo-sagemaker-model-từ-artifact">🧠 6.1 – Tạo SageMaker Model từ Artifact</h4>
+<p>Sau khi train và đăng ký model (bước 5), chúng ta sẽ tạo một <strong>SageMaker Model</strong> dựa trên output đó.</p>
+<ol>
+<li>
+<p>Truy cập <strong>SageMaker Console</strong> → <strong>Inference → Models</strong></p>
+</li>
+<li>
+<p>Nhấn <strong>Create model</strong></p>
+</li>
+<li>
+<p>Cấu hình:</p>
+<ul>
+<li><strong>Model name</strong>: <code>ml-blog-model</code></li>
+<li><strong>Execution role</strong>: Chọn IAM role đã tạo ở bước trước (<code>SageMakerExecutionRole</code>)</li>
+<li><strong>Container definition</strong>:
+<ul>
+<li>Image: <code>382416733822.dkr.ecr.ap-southeast-1.amazonaws.com/xgboost:latest</code> <em>(hoặc image bạn đã dùng khi train)</em></li>
+<li>Model artifact location:
+<pre tabindex="0"><code>s3://ml-pipeline-bucket/model/xgboost-model.tar.gz
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Nhấn <strong>Create model</strong> để hoàn tất.
+<img src="//localhost:1313/images/6-Deploy-SageMaker-Endpoint/6.1.png" alt="create-endpoint.png">
+
+<div class="notices tip" ><p>📌 <strong>Lưu ý:</strong> Container image và đường dẫn artifact phải trùng khớp với job train đã tạo trước đó.</p>
+</div>
+</p>
+</li>
+</ol>
+<hr>
+<h4 id="-62--tạo-endpoint-configuration">⚙️ 6.2 – Tạo Endpoint Configuration</h4>
+<ol>
+<li>
+<p>Điều hướng đến <strong>Inference → Endpoint configurations</strong></p>
+</li>
+<li>
+<p>Chọn <strong>Create endpoint configuration</strong></p>
+</li>
+<li>
+<p>Cấu hình:</p>
+<ul>
+<li><strong>Name</strong>: <code>ml-blog-endpoint-config</code></li>
+<li><strong>Model name</strong>: <code>ml-blog-model</code></li>
+<li><strong>Instance type</strong>: <code>ml.m5.large</code> <em>(hoặc <code>ml.t2.medium</code> nếu muốn tiết kiệm chi phí)</em></li>
+<li><strong>Initial instance count</strong>: <code>1</code></li>
+</ul>
+</li>
+<li>
+<p>Nhấn <strong>Create endpoint configuration</strong>
+<img src="//localhost:1313/images/6-Deploy-SageMaker-Endpoint/6.2.png" alt="create-endpoint.png"></p>
+</li>
+</ol>
+<hr>
+<h4 id="-63--triển-khai-sagemaker-endpoint">🌐 6.3 – Triển khai SageMaker Endpoint</h4>
+<ol>
+<li>
+<p>Điều hướng đến <strong>Inference → Endpoints</strong></p>
+</li>
+<li>
+<p>Chọn <strong>Create endpoint</strong></p>
+</li>
+<li>
+<p>Nhập:</p>
+<ul>
+<li><strong>Endpoint name</strong>: <code>ml-blog-endpoint</code></li>
+<li><strong>Endpoint configuration</strong>: Chọn <code>ml-blog-endpoint-config</code></li>
+</ul>
+</li>
+<li>
+<p>Nhấn <strong>Create endpoint</strong>. Quá trình tạo sẽ mất vài phút ⏳.</p>
+</li>
+</ol>
+<p>📸 Ví dụ giao diện triển khai:</p>
+<p><img src="//localhost:1313/images/6-Deploy-SageMaker-Endpoint/6.3.png" alt="create-endpoint.png"></p>
+
+<div class="notices warning" ><ul>
+<li>Đảm bảo IAM Role có quyền truy cập S3 và SageMaker (<code>AmazonSageMakerFullAccess</code>, <code>AmazonS3ReadOnlyAccess</code>).</li>
+<li>Endpoint phải ở trạng thái <strong>InService</strong> trước khi sử dụng inference.</li>
+</ul>
+</div>
+
+<hr>
+<h4 id="-64--kiểm-tra-endpoint-bằng-boto3-python">🧪 6.4 – Kiểm tra Endpoint bằng boto3 (Python)</h4>
+<p>Sau khi endpoint ở trạng thái <code>InService</code>, hãy kiểm tra inference bằng đoạn mã Python sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>runtime <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sagemaker-runtime&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;features&#34;</span>: [<span style="color:#ae81ff">0.56</span>, <span style="color:#ae81ff">0.32</span>, <span style="color:#ae81ff">0.78</span>, <span style="color:#ae81ff">0.12</span>]  <span style="color:#75715e"># ví dụ dữ liệu input</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">=</span> runtime<span style="color:#f92672">.</span>invoke_endpoint(
+</span></span><span style="display:flex;"><span>    EndpointName<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ml-blog-endpoint&#39;</span>,
+</span></span><span style="display:flex;"><span>    ContentType<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;application/json&#39;</span>,
+</span></span><span style="display:flex;"><span>    Body<span style="color:#f92672">=</span>json<span style="color:#f92672">.</span>dumps(payload)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(response[<span style="color:#e6db74">&#39;Body&#39;</span>]<span style="color:#f92672">.</span>read()<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;📊 Kết quả dự đoán:&#34;</span>, result)
+</span></span></code></pre></div><h4 id="-kết-quả-sẽ-trả-về-giá-trị-dự-đoán-ví-dụ-1-hoặc-0-cho-mô-hình-phân-loại">✅ Kết quả sẽ trả về giá trị dự đoán (ví dụ: 1 hoặc 0 cho mô hình phân loại).</h4>
+<p>.</p>
+<h4 id="-65--giám-sát-endpoint-với-cloudwatch">📊 6.5 – Giám sát Endpoint với CloudWatch</h4>
+<p>Vào CloudWatch → Logs để xem log inference.
+Theo dõi metric như:</p>
+<ul>
+<li>Invocations</li>
+<li>Invocation4XXErrors</li>
+<li>ModelLatency</li>
+</ul>
+<p>Điều này giúp đánh giá hiệu năng mô hình trong môi trường production.
+
+<div class="notices tip" ><p>📌 Bạn có thể bật Auto Scaling cho endpoint bằng cách dùng Application Auto Scaling để tự động tăng/giảm số instance theo lưu lượng inference.</p>
+</div>
+</p>
+<h4 id="-hoàn-thành">✅ Hoàn thành</h4>
+<p>Bạn đã triển khai thành công một SageMaker Endpoint từ mô hình đã train.</p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="//localhost:1313/vi/5-train-model-with-sagemaker/5.4-validate-training-results/" title="Xác thực Kết quả Huấn luyện Mô hình"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="//localhost:1313/vi/7-build-lambda-inference-and-api/" title="Xây dựng Lambda Function và REST API cho Inference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="//localhost:1313/js/clipboard.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.jquery.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/jquery.sticky.js?1761106252"></script>
+    <script src="//localhost:1313/js/featherlight.min.js?1761106252"></script>
+    <script src="//localhost:1313/js/highlight.pack.js?1761106252"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//localhost:1313/js/modernizr.custom-3.6.0.js?1761106252"></script>
+    <script src="//localhost:1313/js/learn.js?1761106252"></script>
+    <script src="//localhost:1313/js/hugo-learn.js?1761106252"></script>
+
+    <link href="//localhost:1313/mermaid/mermaid.css?1761106252" rel="stylesheet" />
+    <script src="//localhost:1313/mermaid/mermaid.js?1761106252"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.147.8">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="//localhost:1313/images/favicon.png" type="image/png">
+
+    <title>Dọn dẹp tài nguyên :: Thiết lập AWS Account</title>
+
+    
+    <link href="//localhost:1313/css/nucleus.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/fontawesome-all.min.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/hybrid.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/featherlight.min.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/perfect-scrollbar.min.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/auto-complete.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/atom-one-dark-reasonable.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/theme.css?1761104817" rel="stylesheet">
+    <link href="//localhost:1313/css/hugo-theme.css?1761104817" rel="stylesheet">
+    
+    <link href="//localhost:1313/css/theme-workshop.css?1761104817" rel="stylesheet">
+    
+    
+
+    <script src="//localhost:1313/js/jquery-3.3.1.min.js?1761104817"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="//localhost:1313/vi/9-clean-up-resources/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+  
+  
+    <div id="header-wrapper">
+      <div id="header">
+        <a id="logo" href="//localhost:1313/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+      </div>
+      
+          <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="//localhost:1313/js/lunr.min.js?1761104817"></script>
+<script type="text/javascript" src="//localhost:1313/js/auto-complete.js?1761104817"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="//localhost:1313/js/search.js?1761104817"></script>
+      
+    </div>
+  
+      <div class="highlightable">
+      <ul class="topics">
+  
+          
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/1-introduction/" title="Giới thiệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/1-introduction/">
+            <b>1. </b>Giới thiệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/2-check-aws-account-and-permissions/" title="Check AWS Account and Permissions" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/2-check-aws-account-and-permissions/">
+            <b>2. </b>Check AWS Account and Permissions
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/" title="Tạo Bucket S3 để Lưu trữ Dữ liệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/">
+            <b>3. </b>Tạo Bucket S3 để Lưu trữ Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/" title="Tạo Bucket S3" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.1-create-an-bucket-to-store-data/">
+            <b>3.1 </b>Tạo Bucket S3
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.2-organize-data-structure/" title="Tổ chức Cấu trúc Dữ liệu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.2-organize-data-structure/">
+            <b>3.2 </b>Tổ chức Cấu trúc Dữ liệu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/3-create-s3-bucket/3.3-upload-sample-data/" title="Tải lên dữ liệu mẫu" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/3-create-s3-bucket/3.3-upload-sample-data/">
+            <b>3.3 </b>Tải lên dữ liệu mẫu
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/4-implement-lambda-preprocessing/" title="Triển khai Hàm Xử lý Trước Lambda" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/4-implement-lambda-preprocessing/">
+            <b>4. </b>Triển khai Hàm Xử lý Trước Lambda
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/" title="Đào tạo và Đăng ký Mô hình với Amazon SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/">
+            <b>5. </b>Đào tạo và Đăng ký Mô hình với Amazon SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/" title="Chuẩn bị dữ liệu đầu vào cho SageMaker" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.1-prepare-training-data/">
+            <b>5.1 </b>Chuẩn bị dữ liệu đầu vào cho SageMaker
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.2-create-training-job/" title="Tạo SageMaker Training Job" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.2-create-training-job/">
+            <b>5.2 </b>Tạo SageMaker Training Job
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/" title="Đăng ký và Quản lý Mô hình trong SageMaker Model Registry" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.3-register-and-manage-model/">
+            <b>5.3 </b>Đăng ký và Quản lý Mô hình trong SageMaker Model Registry
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/5-train-model-with-sagemaker/5.4-validate-training-results/" title="Xác thực Kết quả Huấn luyện Mô hình" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/5-train-model-with-sagemaker/5.4-validate-training-results/">
+            <b>5.4 </b>Xác thực Kết quả Huấn luyện Mô hình
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/6-deploy-sagemaker-endpoint/" title="Triển khai Endpoint của SageMaker cho Inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/6-deploy-sagemaker-endpoint/">
+            <b>6. </b>Triển khai Endpoint của SageMaker cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/7-build-lambda-inference-and-api/" title="Xây dựng Lambda Function và REST API cho Inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/7-build-lambda-inference-and-api/">
+            <b>7. </b>Xây dựng Lambda Function và REST API cho Inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/" title="Tích hợp DynamoDB và CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/">
+            <b>8 </b>Tích hợp DynamoDB và CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+        
+          <ul>
+            
+            
+              
+            
+            
+            
+          
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/" title="Tạo bảng DynamoDB để lưu metadata inference" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.1-create-dynamodb-table/">
+            <b>8.1 </b>Tạo bảng DynamoDB để lưu metadata inference
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/" title="Cập nhật Lambda để ghi dữ liệu vào DynamoDB" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.2-update-lambda-to-write-dynamodb/">
+            <b>8.2 </b>Cập nhật Lambda để ghi dữ liệu vào DynamoDB
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+              
+              
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/" title="Giám sát với Amazon CloudWatch" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/">
+            <b>8.3 </b>Giám sát với Amazon CloudWatch
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+              
+            
+          
+          </ul>
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/9-clean-up-resources/" title="Dọn dẹp tài nguyên" class="dd-item 
+          
+          active
+          
+          ">
+        <a href="//localhost:1313/vi/9-clean-up-resources/">
+            <b>9. </b>Dọn dẹp tài nguyên
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+            
+  
+  
+  
+  
+   
+    
+      
+      <li data-nav-id="/vi/10-conclusion/" title="Kết luận và những điểm chính" class="dd-item 
+          
+          
+          
+          ">
+        <a href="//localhost:1313/vi/10-conclusion/">
+            <b>10. </b>Kết luận và những điểm chính
+            
+              <i class="fas fa-check read-icon"></i>
+            
+        </a>
+        
+                
+      </li>
+    
+   
+  
+            
+           
+      </ul>
+  
+      
+      
+        <section id="shortcuts">
+          <h3>More</h3>
+          <ul>
+            
+                <li> 
+                    <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+                </li>
+            
+          </ul>
+        </section>
+      
+  
+      
+      <section id="prefooter">
+        <hr/>
+        <ul>
+        
+          <li>
+            <a class="padding">
+              <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+            
+            
+            
+                
+                
+                    
+                      
+                      
+                        <option id="en" value="//localhost:1313/9-clean-up-resources/">English</option>
+                      
+                    
+                
+                    
+                
+            
+                
+                
+                    
+                
+                    
+                      
+                      
+                        <option id="vi" value="//localhost:1313/vi/9-clean-up-resources/" selected>Tiếng Việt</option>
+                      
+                    
+                
+            
+          </select>
+          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+            <g>
+              <g id="arrow-drop-down">
+                <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+              </g>
+            </g>
+          </svg>
+          </div>
+          </a>
+          </li>
+        
+        
+        
+          <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+        
+        </ul>
+      </section>
+      
+      <section id="footer">
+        <left>
+    
+    <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Migrate" Alt="web counter" border="0" /></a> <br>
+    <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0"
+        title="Total CLoud Journey" Alt="web counter" border="0" />
+
+</left>
+<left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>29-08-2025</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+
+    <i>
+        <a href="https://www.linkedin.com/in/bao-anh-nguyen-nhat-7891722a7/" style="color:orange">Nguyễn Nhật Bảo Anh</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+      </section>
+    </div>
+  </nav>
+  
+  
+  
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='//localhost:1313/vi/'>Hội thảo: Xây dựng quy trình học máy toàn diện trên AWS với Lambda, API Gateway, S3, SageMaker và DynamoDB</a> > Dọn dẹp tài nguyên
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-mục-tiêu-của-bước-này">🎯 Mục tiêu của bước này</a></li>
+        <li><a href="#-các-tài-nguyên-cần-xóa">🗑️ Các tài nguyên cần xóa</a></li>
+        <li><a href="#-hướng-dẫn-dọn-dẹp-chi-tiết">🧼 Hướng dẫn dọn dẹp chi tiết</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Dọn dẹp tài nguyên
+            </h1>
+          
+
+        
+
+
+
+	<p>Sau khi hoàn thành toàn bộ workshop <strong>&ldquo;Building an End-to-End Machine Learning Pipeline on AWS&rdquo;</strong>, bước cuối cùng là <strong>dọn dẹp tất cả tài nguyên AWS</strong> mà bạn đã tạo trong quá trình triển khai.<br>
+Điều này cực kỳ quan trọng để tránh phát sinh chi phí ngoài Free Tier, đảm bảo an toàn bảo mật và giữ cho tài khoản AWS luôn sạch sẽ cho các dự án tiếp theo.</p>
+<hr>
+<h3 id="-mục-tiêu-của-bước-này">🎯 Mục tiêu của bước này</h3>
+<ul>
+<li><strong>💸 Tiết kiệm chi phí</strong>: Ngăn chặn chi phí phát sinh từ các dịch vụ không còn sử dụng.</li>
+<li><strong>🔐 Bảo mật</strong>: Loại bỏ quyền IAM, API và tài nguyên không cần thiết để giảm thiểu rủi ro bảo mật.</li>
+<li><strong>🧰 Gọn gàng và dễ quản lý</strong>: Giúp tài khoản AWS sạch sẽ và sẵn sàng cho các workshop hoặc dự án mới.</li>
+</ul>
+<hr>
+<h3 id="-các-tài-nguyên-cần-xóa">🗑️ Các tài nguyên cần xóa</h3>
+<p>Dưới đây là danh sách tài nguyên đã được sử dụng xuyên suốt dự án mà bạn cần xóa:</p>
+<ul>
+<li><strong>Amazon CloudFront</strong> – CDN phân phối ứng dụng và nội dung.</li>
+<li><strong>Amazon S3</strong> – Lưu trữ dữ liệu và model.</li>
+<li><strong>Amazon API Gateway</strong> – REST API kết nối Lambda và endpoint inference.</li>
+<li><strong>AWS Lambda</strong> – Hàm xử lý dữ liệu, tiền xử lý và suy luận.</li>
+<li><strong>Amazon DynamoDB</strong> – Bảng lưu metadata và kết quả inference.</li>
+<li><strong>AWS IAM</strong> – Vai trò và chính sách cấp quyền cho Lambda và SageMaker.</li>
+</ul>
+<hr>
+<h3 id="-hướng-dẫn-dọn-dẹp-chi-tiết">🧼 Hướng dẫn dọn dẹp chi tiết</h3>
+<h4 id="1--xóa-phân-phối-cloudfront">1. 🧭 Xóa phân phối CloudFront</h4>
+<ol>
+<li>Truy cập <strong>CloudFront</strong> từ <strong>AWS Management Console</strong>.</li>
+<li>Chọn phân phối bạn đã tạo (ví dụ: <code>d1234567890abcdef.cloudfront.net</code>).</li>
+<li>Nhấp <strong>Disable (Vô hiệu hóa)</strong> và đợi trạng thái chuyển sang <strong>Disabled</strong>.</li>
+<li>Nhấp <strong>Delete (Xóa)</strong> để xóa hoàn toàn phân phối.</li>
+</ol>
+<hr>
+<h4 id="2--xóa-bucket-amazon-s3">2. 📦 Xóa bucket Amazon S3</h4>
+<ol>
+<li>Vào <strong>S3</strong> từ bảng điều khiển AWS.</li>
+<li>Chọn bucket đã tạo (ví dụ: <code>ml-workshop-data-&lt;account-id&gt;</code>).</li>
+<li>Nhấp <strong>Empty</strong>, nhập <code>permanently delete</code> để xác nhận, rồi chọn <strong>Empty</strong>.</li>
+<li>Khi bucket trống, nhấp <strong>Delete bucket</strong>, nhập tên bucket để xác nhận xóa.</li>
+</ol>
+<p><img src="//localhost:1313/images/9-Clean-Up-Resources/9.1.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.2.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.3.png" alt="Check Region"></p>
+<hr>
+<h4 id="3--xóa-api-gateway">3. 🌐 Xóa API Gateway</h4>
+<ol>
+<li>Vào <strong>API Gateway</strong>.</li>
+<li>Chọn API bạn đã triển khai (ví dụ: <code>InferenceAPI</code>).</li>
+<li>Nhấp <strong>Actions → Delete</strong>, nhập tên API để xác nhận và hoàn tất xóa.</li>
+</ol>
+<p><img src="//localhost:1313/images/9-Clean-Up-Resources/9.4.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.5.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.6.png" alt="Check Region"></p>
+<hr>
+<h4 id="4--xóa-các-hàm-aws-lambda">4. 🧠 Xóa các hàm AWS Lambda</h4>
+<ol>
+<li>Truy cập <strong>Lambda</strong> từ bảng điều khiển.</li>
+<li>Xóa tất cả các hàm bạn đã tạo, ví dụ:
+<ul>
+<li><code>preprocessing-function</code></li>
+<li><code>inference-function</code></li>
+</ul>
+</li>
+<li>Nhấp <strong>Actions → Delete</strong>, xác nhận xóa từng hàm.</li>
+</ol>
+<p><img src="//localhost:1313/images/9-Clean-Up-Resources/9.7.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.8.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.9.png" alt="Check Region"></p>
+<hr>
+<h4 id="5--xóa-bảng-dynamodb">5. 📊 Xóa bảng DynamoDB</h4>
+<ol>
+<li>Vào <strong>DynamoDB</strong> → <strong>Tables</strong>.</li>
+<li>Chọn bảng mà bạn đã tạo (ví dụ: <code>InferenceMetadata</code>).</li>
+<li>Nhấp <strong>Actions → Delete table</strong>, nhập tên bảng để xác nhận.</li>
+</ol>
+<p><img src="//localhost:1313/images/9-Clean-Up-Resources/9.10.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.11.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.12.png" alt="Check Region"></p>
+<hr>
+<h4 id="6--xóa-các-tài-nguyên-iam">6. 🔐 Xóa các tài nguyên IAM</h4>
+<ol>
+<li>Vào <strong>IAM</strong> trong bảng điều khiển.</li>
+<li>Trong <strong>Policies</strong>, chọn chính sách đã tạo (ví dụ: <code>lambda-inference-policy</code>) → <strong>Delete</strong>.</li>
+<li>Trong <strong>Roles</strong>, chọn vai trò liên quan (ví dụ: <code>lambda-inference-role</code>) → <strong>Delete</strong>.</li>
+</ol>
+<p><img src="//localhost:1313/images/9-Clean-Up-Resources/9.13.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.14.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.15.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.16.png" alt="Check Region">
+<img src="//localhost:1313/images/9-Clean-Up-Resources/9.17.png" alt="Check Region"></p>
+<hr>
+
+<div class="notices warning" ><p>⚠️ <strong>Lưu ý quan trọng:</strong></p>
+<ul>
+<li>Đảm bảo rằng <strong>bucket S3 đã trống</strong> trước khi xóa.</li>
+<li>Kiểm tra kỹ các tài nguyên trước khi xóa để tránh xóa nhầm tài nguyên từ dự án khác.</li>
+<li>Nếu gặp lỗi khi xóa (ví dụ: tài nguyên vẫn đang được tham chiếu), hãy kiểm tra các <strong>phụ thuộc</strong> như quyền IAM, endpoint API Gateway, hoặc phân phối CloudFront.</li>
+</ul>
+</div>
+
+<hr>
+<h4 id="-kết-quả-sau-khi-dọn-dẹp">✅ Kết quả sau khi dọn dẹp</h4>
+<ul>
+<li>Toàn bộ tài nguyên của dự án đã được xóa.</li>
+<li>Tài khoản AWS của bạn không còn tài nguyên nào phát sinh chi phí.</li>
+<li>Bạn có thể bắt đầu các workshop hoặc dự án mới mà không bị xung đột tài nguyên cũ.</li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/8.3-monitor-with-cloudwatch/" title="Giám sát với Amazon CloudWatch"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="//localhost:1313/vi/10-conclusion/" title="Kết luận và những điểm chính" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="//localhost:1313/js/clipboard.min.js?1761104817"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.min.js?1761104817"></script>
+    <script src="//localhost:1313/js/perfect-scrollbar.jquery.min.js?1761104817"></script>
+    <script src="//localhost:1313/js/jquery.sticky.js?1761104817"></script>
+    <script src="//localhost:1313/js/featherlight.min.js?1761104817"></script>
+    <script src="//localhost:1313/js/highlight.pack.js?1761104817"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//localhost:1313/js/modernizr.custom-3.6.0.js?1761104817"></script>
+    <script src="//localhost:1313/js/learn.js?1761104817"></script>
+    <script src="//localhost:1313/js/hugo-learn.js?1761104817"></script>
+
+    <link href="//localhost:1313/mermaid/mermaid.css?1761104817" rel="stylesheet" />
+    <script src="//localhost:1313/mermaid/mermaid.js?1761104817"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
