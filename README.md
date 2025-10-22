@@ -23,7 +23,7 @@ Mục tiêu của dự án là tạo ra một hệ thống **ML pipeline tự đ
 3. Sau khi huấn luyện xong, mô hình được lưu và quản lý trong **SageMaker Model Registry**  
 4. **API Gateway + Lambda** cung cấp API `/predict` để gọi tới **SageMaker Endpoint** phục vụ dự đoán theo thời gian thực  
 5. **DynamoDB** lưu metadata của các lần inference, trong khi **CloudWatch** theo dõi logs, hiệu năng và cảnh báo  
-
+![Workshop Architecture](/images/an%20automated%20Machine%20Learning%20(ML)%20pipeline%20system%20on%20AWS.drawio%20(1).svg)
 ---
 
 ## 🧩 Công nghệ chính
