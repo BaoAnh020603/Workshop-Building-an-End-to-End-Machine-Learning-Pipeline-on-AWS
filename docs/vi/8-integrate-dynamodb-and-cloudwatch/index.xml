@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tích hợp DynamoDB và CloudWatch on Thiết lập AWS Account</title>
-    <link>//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/</link>
+    <link>https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/vi/8-integrate-dynamodb-and-cloudwatch/</link>
     <description>Recent content in Tích hợp DynamoDB và CloudWatch on Thiết lập AWS Account</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="//localhost:1313/vi/8-integrate-dynamodb-and-cloudwatch/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/vi/8-integrate-dynamodb-and-cloudwatch/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

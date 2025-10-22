@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Xây dựng Lambda Function và REST API cho Inference on Thiết lập AWS Account</title>
-    <link>//localhost:1313/vi/7-build-lambda-inference-and-api/</link>
+    <link>https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/vi/7-build-lambda-inference-and-api/</link>
     <description>Recent content in Xây dựng Lambda Function và REST API cho Inference on Thiết lập AWS Account</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="//localhost:1313/vi/7-build-lambda-inference-and-api/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/vi/7-build-lambda-inference-and-api/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

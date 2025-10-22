@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Organizing Data Structures on AWS Account Setup</title>
-    <link>//localhost:1313/3-create-s3-bucket/3.2-organize-data-structure/</link>
+    <link>https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/3-create-s3-bucket/3.2-organize-data-structure/</link>
     <description>Recent content in Organizing Data Structures on AWS Account Setup</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="//localhost:1313/3-create-s3-bucket/3.2-organize-data-structure/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://baoanh020603.github.io/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS/3-create-s3-bucket/3.2-organize-data-structure/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
