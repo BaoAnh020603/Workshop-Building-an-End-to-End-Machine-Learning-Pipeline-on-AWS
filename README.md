@@ -43,7 +43,7 @@ Mục tiêu của dự án là tạo ra một hệ thống **ML pipeline tự đ
 
 ```bash
 # Clone repository
-git clone https://github.com/BaoAnh020603/Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS.git
+git clone https://github.com/BaoAnh020603/Workshop-Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS.git
 cd Building-an-End-to-End-Machine-Learning-Pipeline-on-AWS
 
 # Tạo S3 bucket lưu dữ liệu
